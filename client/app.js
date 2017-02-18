@@ -15,14 +15,18 @@ myApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/templates/inventory.html',
 			controller: 'InventoryCtrl'
 		})
+		.when('/epos/orders', {
+			templateUrl: 'views/templates/orders.html',
+			controller: 'OrdersCtrl'
+		})
 		.when('/epos/home', {
 			templateUrl: 'views/templates/home.html',
 			controller:'HomeCtrl'
 		});
 }]);
 
-myApp.controller('HomeCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
-	console.log('homectrl working...');
+myApp.controller('SideNavCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+	console.log('SideNavCtrl working...');
 	$scope.user = {name:'test', password:'test'};
 	$scope.authUser = function(usr) {
 		console.log('');
@@ -58,21 +62,18 @@ myApp.controller('HomeCtrl', ['$scope', '$http', '$location', function($scope, $
 	$scope.openMenu = function(){
 		console.log('opened the menu...');
 		$location.path('/epos/menu');
-		$http.get('/api/drinks').then(successCallback, errorCallback);
-
-		function successCallback(res){
-		    //success code
-				console.log(res.data[0].name);
-
-				$scope.drinks = res.data;
-				
-				// $http.get('/'); //return URL to normal..is there a better way?
-		}
-		function errorCallback(error){
-		    //error code
-		}
 	}
 
+	$scope.openOrders = function() {
+		console.log('opened the active orders...');
+		$location.path('/epos/orders');
+	}
+
+	$scope.openHome = function() {
+		console.log('opened the home/admin page');
+		$location.path('/epos/home');
+
+	}
 
 }]);
 
@@ -93,7 +94,20 @@ myApp.controller('DrinksCtrl', ['$scope', '$http', function($scope, $http){
 
 myApp.controller('MenuCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('MenuCtrl working...');
-	$scope.name = 'Raymond';
+	$http.get('/api/drinks').then(successCallback, errorCallback);
+	$http.get('/api/entrees').then(successCallback, errorCallback);
+	$http.get('/api/sides').then(successCallback, errorCallback);
+	function successCallback(res){
+	    //success code
+			// console.log(res.data[0].name);
+
+		$scope.menu = res.data;
+			
+			// $http.get('/'); //return URL to normal..is there a better way?
+	}
+	function errorCallback(error){
+	    //error code
+	}
 
 }]);
 
@@ -101,4 +115,12 @@ myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
 	console.log('InventoryCtrl working...');
 
 
+}]);
+
+myApp.controller('OrdersCtrl', ['$scope', '$http', function($scope, $http){
+	console.log('OrdersCtrl working..');
+}]);
+
+myApp.controller('HomeCtrl', ['$scope', '$http', function($scope, $http){ 
+	console.log('HomeCtrl working...');
 }]);

@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //link client angular up..
 app.use(express.static(__dirname + '/client'));
 
+//favicon
 
 //below is non angular way...
 
@@ -49,13 +50,27 @@ app.get('/test', function(req, res, next) {
 });
 
 app.get('/api/drinks', function(req, res, next) {
-	console.log('model route working..');
+	console.log('drinks route working..');
 	//res.send('worked');
 	//res.send('worked');
 	db.drinks.find(function(err, docs) {
 		res.json(docs);
 	});
 
+});
+
+app.get('/api/entrees', function(req, res, next) {
+	console.log('entree route working..');
+	db.entrees.find(function(err, docs) {
+		res.json(docs);
+	});
+});
+
+app.get('/api/sides', function(req, res, next) {
+	console.log('sides route working..');
+	db.sides.find(function(err, docs) {
+		res.json(docs);
+	});
 });
 app.use('/', User);
 app.use('/test', User);
