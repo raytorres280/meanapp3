@@ -1,0 +1,21 @@
+{
+  "name": "meanapp3",
+  "version": "1.0.0",
+  "description": "attempt 3....",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.8.2",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-localapikey": "0.0.3"
+  }
+}

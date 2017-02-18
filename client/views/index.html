@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+    <title>ePos</title>
+
+
+  </head>
+<body class="blue">
+  
+  <div class="row">
+    
+    <div class="col l3">
+      <ul id="slide-out" class="side-nav fixed" ng-controller="HomeCtrl">
+        <li><a href="#!">First Sidebar Link</a></li>
+        <li><a href="#!">Second Sidebar Link</a></li>
+        <li><a ng-click="openMenu()">menu</a></li>
+        <li><a ng-click="openInventory()">inventory</a></li>
+        <li><a ng-click="authUser()">this is a test</a></li>
+      </ul>
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+
+    <div class="col l9">
+      <ng-view></ng-view>
+    </div>
+  </div>
+
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+
+<script src="../app.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+
+
+</html>
+<!-- <div ng-controller="LoginCtrl">
+          <button type="button" ng-click="login()">test...</button>
+        </div>
+
+        <div ng-controller="HomeCtrl">
+          <h1>{{ user.name }}</h1>
+          <h2>{{ user.password }}</h2>
+          <button type="button" ng-click="authUser()">GET</button>
+          <button type="button" ng-click="openInventory()">TEST UI ROUTER</button>
+        </div>
+
+        <ng-view>
+          
+        </ng-view> -->
