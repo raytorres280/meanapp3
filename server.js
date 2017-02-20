@@ -2,13 +2,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var User = require('./models/User');
-//console.log(User);
 var port = 3000;
 
+// model/route files
+var Index = require('./models/Index');
+var Drink = require('./models/Drink');
+var Entree = require('./models/Entree');
+var Side = require('./models/Side');
 var app = express();
 
-var mongojs = require('mongojs');
-var db = mongojs('mongodb://localhost:27017/posdb', ['drinks', 'entrees', 'sides']);
+// var mongojs = require('mongojs');
+// var db = mongojs('mongodb://localhost:27017/posdb', ['drinks', 'entrees', 'sides']);
 
 
 
@@ -31,50 +35,15 @@ app.use(express.static(__dirname + '/client'));
 //var home = require('./controllers/HomeController');
 //var drink = require('./controllers/DrinkController');
 
+// app.get('/', function(req, res) {
+// 	res.render('index.html');
+// });
 
+app.use('/', Index);
 
-
-
-app.get('/', function(req, res) {
-	res.render('index.html');
-});
-
-
-
-app.get('/test', function(req, res, next) {
-	//res.send('caught test');
-	db.drinks.find(function(err, docs) {
-		res.json(docs);
-	});
-
-});
-
-app.get('/api/drinks', function(req, res, next) {
-	console.log('drinks route working..');
-	//res.send('worked');
-	//res.send('worked');
-	db.drinks.find(function(err, docs) {
-		res.json(docs);
-	});
-
-});
-
-app.get('/api/entrees', function(req, res, next) {
-	console.log('entree route working..');
-	db.entrees.find(function(err, docs) {
-		res.json(docs);
-	});
-});
-
-app.get('/api/sides', function(req, res, next) {
-	console.log('sides route working..');
-	db.sides.find(function(err, docs) {
-		res.json(docs);
-	});
-});
-app.use('/', User);
-app.use('/test', User);
-app.use('#/api/user', User);
+app.use('/api', Entree);
+app.use('/api', Side);
+app.use('/api', Drink);
 
 
 app.listen(3000);

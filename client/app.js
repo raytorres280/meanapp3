@@ -94,14 +94,24 @@ myApp.controller('DrinksCtrl', ['$scope', '$http', function($scope, $http){
 
 myApp.controller('MenuCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('MenuCtrl working...');
-	$http.get('/api/drinks').then(successCallback, errorCallback);
+	$scope.menu = [];
+	
 	$http.get('/api/entrees').then(successCallback, errorCallback);
 	$http.get('/api/sides').then(successCallback, errorCallback);
+	$http.get('/api/drinks').then(successCallback, errorCallback);
+
 	function successCallback(res){
 	    //success code
 			// console.log(res.data[0].name);
 
-		$scope.menu = res.data;
+		// $scope.menu.push(res.data); array of arrays...better way...
+
+		res.data.forEach(function(n){
+			console.log(n);
+			$scope.menu.push(n);
+		});
+
+		console.log($scope.menu);
 			
 			// $http.get('/'); //return URL to normal..is there a better way?
 	}
@@ -124,3 +134,4 @@ myApp.controller('OrdersCtrl', ['$scope', '$http', function($scope, $http){
 myApp.controller('HomeCtrl', ['$scope', '$http', function($scope, $http){ 
 	console.log('HomeCtrl working...');
 }]);
+
