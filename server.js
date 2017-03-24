@@ -9,12 +9,19 @@ var Index = require('./models/Index');
 var Drink = require('./models/Drink');
 var Entree = require('./models/Entree');
 var Side = require('./models/Side');
+var Menu_item = require('./models/Menu_item');
+var Inventory = require('./models/Inventory');
+var Order = require('./models/Order');
+
 var app = express();
 
 // var mongojs = require('mongojs');
 // var db = mongojs('mongodb://localhost:27017/posdb', ['drinks', 'entrees', 'sides']);
 
 
+var favicon = require('serve-favicon');
+
+app.use(favicon('favicon.ico'));
 
 
 app.set('views', path.join(__dirname, 'client/views'));
@@ -44,6 +51,10 @@ app.use('/', Index);
 app.use('/api', Entree);
 app.use('/api', Side);
 app.use('/api', Drink);
+
+app.use('/api', Menu_item);
+app.use('/api', Inventory);
+app.use('/api', Order);
 
 
 app.listen(3000);

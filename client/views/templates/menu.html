@@ -1,14 +1,28 @@
 <h1>Luis Pizzeria</h1>
 
-<div ng-repeat="n in menu">
-	<div class="card">
-            <span class="card-title">{{ n.name }}</span>
-            <div class="card-content">
-              <p>{{ n.ingredients.join(', ') }}</p>
-            </div>
-            <div class="card-action">
-            	<a class="waves-effect waves-light btn-flat md-green white-text">add
-            	</a>
-            </div>
-    </div>
+<!-- MENU ITEMS -->
+<div class="row">
+	<div ng-repeat="n in menu" class="col l3">
+		<div class="card">
+	            <div class="container"><span class="card-title">{{ n.name }}</span></div>
+	            <div class="card-content">
+	              <p>{{ n.ingredients.join(', ') }}</p>
+	            </div>
+	            <div class="card-action">
+	            	<a class="waves-effect waves-light btn-flat md-green white-text " ng-click="addToOrder(n)">add
+	            	</a>
+	            </div>
+	    </div>
+	</div>
+
+
+<!-- SHOPPING CART -->
+	<div class="col l6" style="border-left: 1px solid #000">
+		<h1>testing cart...</h1>
+		<div ng-repeat="n in cart" class="col l12">
+			<div class="card">
+				<p>{{ n.name}}</p>
+			</div>
+		</div>
+	</div>
 </div>

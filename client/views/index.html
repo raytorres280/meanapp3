@@ -14,25 +14,32 @@
 
   </head>
 <body class="md-red">
-  
-  <div class="row">
-    
-    <div class="col l3">
-      <ul id="slide-out" class="side-nav fixed" ng-controller="SideNavCtrl">
-        <li><a ng-click="openHome()">home</a></li>
-        <li><a ng-click="openMenu()">menu</a></li>
-        <li><a ng-click="openInventory()">inventory</a></li>
-        <li><a ng-click="openOrders()">orders</a></li>
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
+<header>
+  <ul id="slide-out" class="side-nav fixed leftside-navigation ps-container ps-active-y" style="width: 240px;" ng-controller="SideNavCtrl">
 
-    <div class="col l9">
-      <ng-view></ng-view>
-    </div>
-  </div>
+    <li class="bold"><a class="waves-effect waves-cyan" ng-click="openHome()">Home</a>
+    </li>
+    <li class="bold"><a ng-click="openMenu()" class="waves-effect waves-cyan">Menu<span class="new badge">4</span></a>
+    </li>
+    <li class="bold"><a ng-click="openInventory()" class="waves-effect waves-cyan">Inventory</a>
+    </li>
+    <li class="bold"><a ng-click="openOrders()" class="waves-effect waves-cyan">Orders</a>
+    </li>
+    <li class="bold"><a ng-click="openCustomers()" class="waves-effect waves-cyan">Customers</a>
+    </li>
 
 
+    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 718px; right: 3px;"><div class="ps-scrollbar-y" style="top: 0px; height: 396px;"></div></div>
+  </ul>
+</header>
+
+<main style="padding-left: 240px">
+
+      <!-- <div class="container"> -->
+        <ng-view></ng-view>
+      <!-- </div> -->
+
+</main>
 
 </body>
 
@@ -66,5 +73,5 @@
         </div>
 
         <ng-view>
-          
+
         </ng-view> -->
