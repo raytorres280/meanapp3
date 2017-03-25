@@ -18,10 +18,39 @@
 
 <!-- SHOPPING CART -->
 	<div class="col l6" style="border-left: 1px solid #000">
-		<h1>testing cart...</h1>
-		<div ng-repeat="n in cart" class="col l12">
+		<div class="row">
+			<div class="col l4">
+				<span class="flow-text">Subtotal</span>
+			</div>
+			<div class="col l4" style="padding-left:30px">
+				<span class="flow-text">{{ total(cart) | number : 2}}</span>
+			</div>
+			<div class="col l4">
+				<button class="btn md-blue right-align" ng-click="checkout(cart)">Checkout</button>
+			</div>
+
+		</div>
+		<div ng-repeat="n in cart track by $index" class="col l11">
 			<div class="card">
-				<p>{{ n.name}}</p>
+				<div class="row">
+					<div class="col l6 center">
+						<span class="flow-text">{{ n.name }}</span>
+					</div>
+					<div class="col l3 right" style="margin-top:20px">
+						<button class="md-red btn-flat btn-large">Remove</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l8">
+						<div class="input-field">
+							<input id="specialInstructions"type="text">
+							<label for="specialInstructions">Special Instructions</label>
+						</div>
+					</div>
+					<div class="col l4 right">
+						<h3 class="right">{{ n.price }}</h3>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

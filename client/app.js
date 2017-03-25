@@ -89,6 +89,13 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 	$scope.menu = [];
 	$scope.ingredients = [];
 	$scope.cart = [];
+	$scope.total = function(cart) {
+		var total = 0;
+		cart.forEach(function(n) {
+			total = total + n.price;
+		});
+		return total;
+	}
 	// $http.get('/api/entrees').then(successCallback, errorCallback);
 	// $http.get('/api/sides').then(successCallback, errorCallback);
 	// $http.get('/api/drinks').then(successCallback, errorCallback);
@@ -165,7 +172,9 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 		}
 
 	}
-
+	$scope.checkout = function(cart) {
+		console.log('checkout pressed..');
+	}
 }]);
 
 myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
