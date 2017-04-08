@@ -120,7 +120,9 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 	    //error code
 	    console.log('menu items didnt work...');
 	}
-
+	function isInCart(item, cartItem) {
+		return item === cartItem;
+	}
 	$scope.addToOrder = function(menu_item) {
 		//check ingredients for current menu_item
 		var ingredients = menu_item.ingredients;
@@ -148,15 +150,20 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 			});
 			console.log(invGood);
 			if (invGood) {
-				// console.log('in if case...');
-				// $http.post('/api/orders', menu_item).then(function() {
-				// 	console.log('order created');
-				// }, function(err){
-				// 	console.log(err);
-				// });
-				//cant do this here...creates order for  1 item...
-
+				//non unique id's from replicating objects is messing up ngrepeat...
+				// menu_item
 				$scope.cart.push(menu_item);
+				// if (!$scope.cart.includes(menu_item)) {
+				// 	console.log('not a dupe..');
+				// 	$scope.cart.push(menu_item);
+				// }
+				// else {
+				// 	console.log('dupe');
+				// 	var index = $scope.cart.indexOf(menu_item);
+				// 	console.log(index);
+				// 	console.log($scope.cart[index]);
+				// 	// $scope.cart[index].qty += 1;
+				// }
 			}
 
 		});
@@ -172,8 +179,16 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 		}
 
 	}
+
+	$scope.remove = function(item) {
+		var index = $scope.cart.indexOf(item);
+		$scope.cart.splice(index, 1);
+	}
 	$scope.checkout = function(cart) {
 		console.log('checkout pressed..');
+		$http.post('/api/orders', cart).then(function() {
+			console.log('post finished..');
+		});
 	}
 }]);
 
@@ -189,10 +204,45 @@ myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
 			console.log(err);
 	});
 
+	$scope.addInventory = function(item) {
+		// console.log('adding to inventory..');
+		item.qty = item.qty + 1;
+
+		$http.put('/api/inventory/' + item.name, item) //ONLY PASS OBJ, not property.
+		.then(function(res) {
+			console.log(res);
+			console.log('put req finished..');
+		},function(err) {
+			console.log(err);
+		});
+
+	};
+
+	$scope.subInventory = function(item) {
+		console.log('subtracting from inventory...');
+		item.qty = item.qty - 1;
+		
+		$http.put('/api/inventory/' + item.name, item) //ONLY PASS OBJ, not property.
+		.then(function(res) {
+			console.log(res);
+			console.log('put req finished..');
+		},function(err) {
+			console.log(err);
+		});
+
+	};
+
 }]);
 
 myApp.controller('OrdersCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('OrdersCtrl working..');
+	//get all orders
+	$http.get('/api/orders').then(function(res) {
+		console.log(res.data);
+		$scope.orders = res.data;
+	}, function(err) {
+		console.log(err);
+	});
 }]);
 myApp.controller('CustomersCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('CustomersCtrl working..');

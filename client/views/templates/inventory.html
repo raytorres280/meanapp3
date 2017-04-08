@@ -1,20 +1,21 @@
-<div>
+<div class="row">
 
 <h1>Luis Pizzeria</h1>
 
 <div ng-repeat="n in inventory" class="col l3">
 	<div class="card">
-            <div class="container"><span class="card-title">{{ n.name }}</span>
-            	<div class="card-content">
+
+						<div class="container">
+							<div class="card-title center">{{ n.name }}</div>
+            	<div class="card-content center">
             		<h3><span class="label label-info ng-binding">{{ n.qty }}</span></h3>
             	</div>
             	<div class="card-action">
-	            	<a class="waves-effect waves-light btn-flat md-green white-text " ng-click="addToOrder(n.ingredients)">add
-	            	</a>
+	            	<button ng-click="addInventory(n)" class="waves-effect waves-light btn-flat green white-text col l6 ">+</button>
+								<button ng-click="subInventory(n)" class="waves-effect waves-light btn-flat red white-text col l6">-</button>
             	</div>
             </div>
 
-            
     </div>
 </div>
 </div>

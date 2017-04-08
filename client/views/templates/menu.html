@@ -1,16 +1,18 @@
 <h1>Luis Pizzeria</h1>
 
-<!-- MENU ITEMS -->
+
 <div class="row">
+
+<!-- MENU ITEMS -->
 	<div ng-repeat="n in menu" class="col l3">
-		<div class="card">
+		<div class="card hoverable">
 	            <div class="container"><span class="card-title">{{ n.name }}</span></div>
 	            <div class="card-content">
 	              <p>{{ n.ingredients.join(', ') }}</p>
 	            </div>
 	            <div class="card-action">
-	            	<a class="waves-effect waves-light btn-flat md-green white-text " ng-click="addToOrder(n)">add
-	            	</a>
+	            	<button class="btn-flat green white-text" ng-click="addToOrder(n)">add
+	            	</button>
 	            </div>
 	    </div>
 	</div>
@@ -26,32 +28,35 @@
 				<span class="flow-text">{{ total(cart) | number : 2}}</span>
 			</div>
 			<div class="col l4">
-				<button class="btn md-blue right-align" ng-click="checkout(cart)">Checkout</button>
+				<button class="btn blue right-align" ng-click="checkout(cart)">Checkout</button>
 			</div>
 
 		</div>
 		<div ng-repeat="n in cart track by $index" class="col l11">
 			<div class="card">
 				<div class="row">
-					<div class="col l6 center">
+					<div class="col l6">
 						<span class="flow-text">{{ n.name }}</span>
 					</div>
 					<div class="col l3 right" style="margin-top:20px">
-						<button class="md-red btn-flat btn-large">Remove</button>
+						<button class="red btn-flat btn-large right" ng-click="remove(n)">Remove</button>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col l8">
+					<div class="col l6">
 						<div class="input-field">
 							<input id="specialInstructions"type="text">
 							<label for="specialInstructions">Special Instructions</label>
+							<h3>{{ n.qty }}</h3>
 						</div>
 					</div>
 					<div class="col l4 right">
 						<h3 class="right">{{ n.price }}</h3>
+						<!-- <h3 class="hide-on-large-only">{{ n.price }}</h3> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
