@@ -1,5 +1,5 @@
 //server inits server.... app inits front end angular... client.js...
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ui.materialize']);
 //var User = require('../models/User.js');
 
 console.log('angular working...');
@@ -75,20 +75,12 @@ myApp.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
 	// $scope.login = function()
 }]);
 
-myApp.controller('DrinksCtrl', ['$scope', '$http', function($scope, $http){
-	console.log('drinksctrl working...');
-	$scope.name = 'Raymond';
-
-	$scope.getDrinks = function() {
-		console.log('got the drinks...');
-	}
-}]);
-
 myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function($scope, $http, $routeParams, $q){
 	console.log('MenuCtrl working...');
 	$scope.menu = [];
 	$scope.ingredients = [];
 	$scope.cart = [];
+	$scope.customers = [];
 	$scope.total = function(cart) {
 		var total = 0;
 		cart.forEach(function(n) {
@@ -99,34 +91,31 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 	// $http.get('/api/entrees').then(successCallback, errorCallback);
 	// $http.get('/api/sides').then(successCallback, errorCallback);
 	// $http.get('/api/drinks').then(successCallback, errorCallback);
-	$http.get('/api/menu_items').then(successCallback, errorCallback);
-
-	function successCallback(res){
-	    //success code
-			// console.log(res.data[0].name);
-
-		// $scope.menu.push(res.data); array of arrays...better way...
+	$http.get('/api/menu_items').then(function successCallback(res){
 
 		res.data.forEach(function(n){
-			// console.log(n);
 			$scope.menu.push(n);
 		});
 
-		// console.log($scope.menu);
-
-			// $http.get('/'); //return URL to normal..is there a better way?
-	}
-	function errorCallback(error){
+	}, function errorCallback(error){
 	    //error code
 	    console.log('menu items didnt work...');
-	}
-	function isInCart(item, cartItem) {
-		return item === cartItem;
-	}
+			});
+
+	$http.get('/api/customers').then(function successCallback(res){
+		res.data.forEach(function(n){
+			$scope.customers.push(n);
+			console.log(n);
+		});
+	}, function errorCallback(err) {
+			console.log(err);
+	});
+
+
 	$scope.addToOrder = function(menu_item) {
 		//check ingredients for current menu_item
 		var ingredients = menu_item.ingredients;
-		var invGood = false;
+		var invGood = false; // change value based on qty for inventory items...
 		// Object.watch(invGood);
 		var promises = [];
 		ingredients.forEach(function(n) {
@@ -150,20 +139,9 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 			});
 			console.log(invGood);
 			if (invGood) {
-				//non unique id's from replicating objects is messing up ngrepeat...
-				// menu_item
+
 				$scope.cart.push(menu_item);
-				// if (!$scope.cart.includes(menu_item)) {
-				// 	console.log('not a dupe..');
-				// 	$scope.cart.push(menu_item);
-				// }
-				// else {
-				// 	console.log('dupe');
-				// 	var index = $scope.cart.indexOf(menu_item);
-				// 	console.log(index);
-				// 	console.log($scope.cart[index]);
-				// 	// $scope.cart[index].qty += 1;
-				// }
+
 			}
 
 		});
@@ -190,6 +168,15 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 			console.log('post finished..');
 		});
 	}
+
+	$scope.assignCustomerToOrder = function(customer) {
+		console.log('adding customer to order...');
+		console.log(customer);
+		console.log(order);
+		console.log($scope.cart);
+
+	};
+
 }]);
 
 myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
@@ -221,7 +208,7 @@ myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.subInventory = function(item) {
 		console.log('subtracting from inventory...');
 		item.qty = item.qty - 1;
-		
+
 		$http.put('/api/inventory/' + item.name, item) //ONLY PASS OBJ, not property.
 		.then(function(res) {
 			console.log(res);
@@ -236,13 +223,32 @@ myApp.controller('InventoryCtrl', ['$scope', '$http', function($scope, $http) {
 
 myApp.controller('OrdersCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('OrdersCtrl working..');
+	$scope.oldOrders = [];
+	$scope.activeOrders = [];
 	//get all orders
 	$http.get('/api/orders').then(function(res) {
 		console.log(res.data);
-		$scope.orders = res.data;
+		res.data.forEach(function(n) {
+			if (n.active == false) {
+					$scope.oldOrders.push(n);
+			}
+			else {
+				$scope.activeOrders.push(n);
+			}
+
+		});
+
 	}, function(err) {
 		console.log(err);
 	});
+
+	$scope.closeOrder = function(n) {
+		console.log('closing out order...');
+		var x = $scope.activeOrders.indexOf(n);
+		$scope.activeOrders.splice(x, 1);
+		$scope.oldOrders.push(n);
+	};
+
 }]);
 myApp.controller('CustomersCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('CustomersCtrl working..');
@@ -250,6 +256,3 @@ myApp.controller('CustomersCtrl', ['$scope', '$http', function($scope, $http){
 myApp.controller('HomeCtrl', ['$scope', '$http', function($scope, $http){
 	console.log('HomeCtrl working...');
 }]);
-
-
-myApp.service('OrderService')

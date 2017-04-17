@@ -12,6 +12,7 @@ var Side = require('./models/Side');
 var Menu_item = require('./models/Menu_item');
 var Inventory = require('./models/Inventory');
 var Order = require('./models/Order');
+var Customer = require('./models/Customer');
 
 var app = express();
 
@@ -55,7 +56,7 @@ app.use('/api', Drink);
 app.use('/api', Menu_item);
 app.use('/api', Inventory);
 app.use('/api', Order);
-
+app.use('/api', Customer);
 
 app.listen(3000);
 console.log('server running on port ' + port.toString() + '...');

@@ -3,7 +3,7 @@
 
 <div class="row">
 
-<!-- MENU ITEMS -->
+	<!-- MENU ITEMS -->
 	<div ng-repeat="n in menu" class="col l3">
 		<div class="card hoverable">
 	            <div class="container"><span class="card-title">{{ n.name }}</span></div>
@@ -11,14 +11,14 @@
 	              <p>{{ n.ingredients.join(', ') }}</p>
 	            </div>
 	            <div class="card-action">
-	            	<button class="btn-flat green white-text" ng-click="addToOrder(n)">add
+	            	<button class="btn-flat green white-text waves-effect" ng-click="addToOrder(n)">add
 	            	</button>
 	            </div>
 	    </div>
 	</div>
 
 
-<!-- SHOPPING CART -->
+	<!-- SHOPPING CART -->
 	<div class="col l6" style="border-left: 1px solid #000">
 		<div class="row">
 			<div class="col l4">
@@ -29,17 +29,18 @@
 			</div>
 			<div class="col l4">
 				<button class="btn blue right-align" ng-click="checkout(cart)">Checkout</button>
+				<a class='btn' data-target='demoModal' modal>Show Modal</a>
 			</div>
 
 		</div>
 		<div ng-repeat="n in cart track by $index" class="col l11">
-			<div class="card">
+			<div class="card hoverable">
 				<div class="row">
 					<div class="col l6">
 						<span class="flow-text">{{ n.name }}</span>
 					</div>
 					<div class="col l3 right" style="margin-top:20px">
-						<button class="red btn-flat btn-large right" ng-click="remove(n)">Remove</button>
+						<button class="red btn-flat btn-large right waves-effect" ng-click="remove(n)">Remove</button>
 					</div>
 				</div>
 				<div class="row">
@@ -59,4 +60,16 @@
 		</div>
 	</div>
 
+
+</div>
+<!-- Modal Structure -->
+<div id="demoModal" class="modal bottom-sheet">
+    <div class="modal-content">
+			<div class="collection" ng-repeat="customer in customer">
+				<a class="collection-item">
+					<span class="title">{{ customer.first + " " + customer.last }}</span>
+					<span class="title">{{ customer._id }}</span>
+				</a>
+			</div>
+		</div>
 </div>
