@@ -162,18 +162,22 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 		var index = $scope.cart.indexOf(item);
 		$scope.cart.splice(index, 1);
 	}
-	$scope.checkout = function(cart) {
+	$scope.checkout = function(customer) {
 		console.log('checkout pressed..');
-		$http.post('/api/orders', cart).then(function() {
+		var order = { cart: $scope.cart, customer: customer }
+		$http.post('/api/orders', order).then(function() {
 			console.log('post finished..');
+		}, function(err) {
+			console.log(err);
 		});
-	}
+	};
 
 	$scope.assignCustomerToOrder = function(customer) {
 		console.log('adding customer to order...');
 		console.log(customer);
 		console.log(order);
 		console.log($scope.cart);
+
 
 	};
 

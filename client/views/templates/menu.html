@@ -28,8 +28,8 @@
 				<span class="flow-text">{{ total(cart) | number : 2}}</span>
 			</div>
 			<div class="col l4">
-				<button class="btn blue right-align" ng-click="checkout(cart)">Checkout</button>
-				<a class='btn' data-target='demoModal' modal>Show Modal</a>
+				<button class="btn blue right-align" data-target='demoModal' modal>Checkout</button>
+				<!-- <a class='btn' data-target='demoModal' modal>Show Modal</a> -->
 			</div>
 
 		</div>
@@ -65,11 +65,25 @@
 <!-- Modal Structure -->
 <div id="demoModal" class="modal bottom-sheet">
     <div class="modal-content">
-			<div class="collection" ng-repeat="customer in customer">
-				<a class="collection-item">
-					<span class="title">{{ customer.first + " " + customer.last }}</span>
-					<span class="title">{{ customer._id }}</span>
+			<div class="collection" ng-repeat="customer in customers">
+				<a class="collection-item" ng-click="checkout(customer)">
+					<div class="row">
+						<div class="col l4">
+							<span class="title black-text">{{ customer.first + " " + customer.last }}</span>
+							<br>
+							<h5 class="black-text">{{ customer._id }}</h5>
+						</div>
+					</div>
 				</a>
 			</div>
 		</div>
+
+		<!-- <div class="modal-content">
+			<ul class="collection" ng-repeat="customer in customers">
+				<li class="collection-item avatar" ng-click="checkout(customer)">
+
+					<span class="title">{{ customer.first + " " + customer.last }}</span>
+				</li>
+			</ul>
+		</div> -->
 </div>

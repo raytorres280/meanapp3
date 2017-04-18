@@ -17,7 +17,7 @@ var Customer = require('./models/Customer');
 var app = express();
 
 // var mongojs = require('mongojs');
-// var db = mongojs('mongodb://localhost:27017/posdb', ['drinks', 'entrees', 'sides']);
+// var db = mongojs('mongodb://rt275:fucktart280@ds163340.mlab.com:63340/posdb', ['drinks', 'entrees', 'sides']);
 
 
 var favicon = require('serve-favicon');
