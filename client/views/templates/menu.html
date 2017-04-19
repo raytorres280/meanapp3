@@ -65,8 +65,11 @@
 <!-- Modal Structure -->
 <div id="demoModal" class="modal bottom-sheet">
     <div class="modal-content">
+			<div class="collection-tem">
+				<button class="btn btn-small blue" data-target="newCustModal" modal>New Customer</button>
+			</div>
 			<div class="collection" ng-repeat="customer in customers">
-				<a class="collection-item" ng-click="checkout(customer)">
+				<a class="collection-item modal-action modal-close" ng-click="checkout(customer)">
 					<div class="row">
 						<div class="col l4">
 							<span class="title black-text">{{ customer.first + " " + customer.last }}</span>
@@ -77,13 +80,40 @@
 				</a>
 			</div>
 		</div>
+</div>
 
-		<!-- <div class="modal-content">
-			<ul class="collection" ng-repeat="customer in customers">
-				<li class="collection-item avatar" ng-click="checkout(customer)">
-
-					<span class="title">{{ customer.first + " " + customer.last }}</span>
-				</li>
-			</ul>
-		</div> -->
+<div id="newCustModal" class="modal bottom-sheet">
+	<div class="modal-content">
+		<form>
+			<div class="row">
+				<div class="input-field inline col l6">
+					<input type="text" ng-model="customer.first" id="first_name">
+					<label for="first_name">First</label>
+				</div>
+				<div class="input-field inline col l6">
+					<input type="text" ng-model="customer.last" id="last_name">
+					<label for="last_name">Last</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field inline col l6">
+					<input type="text" ng-model="customer.address" id="address">
+					<label for="address">Address</label>
+				</div>
+				<div class="input-field inline col l6">
+					<input type="text" ng-model="customer.city" id="city">
+					<label for="city">City</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field inline col l6">
+					<input type="text" ng-model="customer.number" id="number">
+					<label for="number">Phone Number</label>
+				</div>
+				<div class="input-field inline col l6">
+					<button class="btn blue modal-action modal-close" ng-click="createCustomer(customer)">Create</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>

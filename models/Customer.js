@@ -14,9 +14,26 @@ router.get('/customers', function(req, res, next) {
 
 });
 
+router.get('/customers/max', function(req, res, next) {
+	console.log('calc max route working..');
+	db.customers.find().sort({_id: -1}, function (err, docs) {
+    // docs is now a sorted array
+		if (err) {
+			console.log(err);
+		}
+		res.json(docs);
+	});
+
+});
+
+
+
 router.post('/customers', function(req, res, next) {
   console.log('in the customer post route.....');
-  //do math here to calculate the 
+	console.log(req.body);
+	// db.customers.insert({
+	// 	_id:
+	// });
 });
 
 module.exports = router;

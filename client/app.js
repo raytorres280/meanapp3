@@ -109,7 +109,7 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 		});
 	}, function errorCallback(err) {
 			console.log(err);
-	});
+		 });
 
 
 	$scope.addToOrder = function(menu_item) {
@@ -164,7 +164,7 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 	}
 	$scope.checkout = function(customer) {
 		console.log('checkout pressed..');
-		var order = { cart: $scope.cart, customer: customer }
+		var order = { cart: $scope.cart, customer: customer };
 		$http.post('/api/orders', order).then(function() {
 			console.log('post finished..');
 		}, function(err) {
@@ -172,13 +172,36 @@ myApp.controller('MenuCtrl', ['$scope', '$http', '$routeParams', '$q', function(
 		});
 	};
 
-	$scope.assignCustomerToOrder = function(customer) {
-		console.log('adding customer to order...');
-		console.log(customer);
-		console.log(order);
-		console.log($scope.cart);
-
-
+	$scope.createCustomer = function(customer) {
+		var temp = [];
+		console.log('creating customer...');
+		// try {
+			if (customer.first && customer.last && customer.address && customer.city && customer.number) {
+				$http.get('/api/customers/max')
+				.then(function(res) {
+					console.log(res.data);
+					// console.log(res.data.sort({_id:-1}));
+					temp.concat(res.data);
+				}, function(err) {
+					console.log(err);
+				});
+				//end of get req.
+				console.log('edited temp below....');
+				console.log(temp);
+				var customerInfo = { max: temp, customer:customer };
+				$http.post('/api/customers', customerInfo)
+				.then(function() {
+					console.log('created new customer..');
+				}, function(err) {
+					console.log(err);
+				});
+			} //end of boolean check...
+		// }
+		// catch (e) {
+		// 	console.log(e);
+		// }
+		console.log(temp);
+		$http.get('/api/customers'); //fetch db to get new customer entry.
 	};
 
 }]);
