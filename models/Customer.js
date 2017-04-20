@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://rt275:fucktart280@ds163340.mlab.com:63340/posdb', ['customers']);
+var db = mongojs('mongodb://rt275:hello123@ds163340.mlab.com:63340/posdb', ['customers']);
 
 router.get('/customers', function(req, res, next) {
 	console.log('entrees route working..');

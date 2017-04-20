@@ -17,7 +17,7 @@ var Customer = require('./models/Customer');
 var app = express();
 app.set('port', (process.env.PORT || 5000)); //
 // var mongojs = require('mongojs');
-// var db = mongojs('mongodb://rt275:fucktart280@ds163340.mlab.com:63340/posdb', ['drinks', 'entrees', 'sides']);
+// var db = mongojs('mongodb://rt275:hello123@ds163340.mlab.com:63340/posdb', ['drinks', 'entrees', 'sides']);
 
 
 var favicon = require('serve-favicon');
