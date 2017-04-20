@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var User = require('./models/User');
-var port = process.env.PORT || 5000;
+// var port = process.env.PORT || 5000;
 
 // model/route files
 var Index = require('./models/Index');
@@ -15,7 +15,7 @@ var Order = require('./models/Order');
 var Customer = require('./models/Customer');
 
 var app = express();
-
+app.set('port', (process.env.PORT || 5000)); //
 // var mongojs = require('mongojs');
 // var db = mongojs('mongodb://rt275:fucktart280@ds163340.mlab.com:63340/posdb', ['drinks', 'entrees', 'sides']);
 
@@ -58,5 +58,5 @@ app.use('/api', Inventory);
 app.use('/api', Order);
 app.use('/api', Customer);
 
-app.listen(3000);
+app.listen(app.get('port'));
 console.log('server running on port ' + port.toString() + '...');
