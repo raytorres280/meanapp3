@@ -59,4 +59,4 @@ app.use('/api', Order);
 app.use('/api', Customer);
 
 app.listen(app.get('port'));
-console.log('server running on port ' + port.toString() + '...');
+console.log('server running on port ' + app.get('port') + '...');
